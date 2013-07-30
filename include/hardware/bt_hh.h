@@ -181,9 +181,6 @@ typedef struct {
     /** Send data to HID device. */
     bt_status_t (*send_data)(bt_bdaddr_t *bd_addr, char* data);
 
-    /** Set the Device Priority */
-    bt_status_t (*set_priority)(bt_bdaddr_t *bd_addr, int priority);
-
     /** Closes the interface. */
     void  (*cleanup)( void );
 
