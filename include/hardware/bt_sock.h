@@ -33,8 +33,6 @@ typedef enum {
     BTSOCK_OPT_GET_MODEM_BITS = 1,
     BTSOCK_OPT_SET_MODEM_BITS = 2,
     BTSOCK_OPT_CLR_MODEM_BITS = 3,
-    BTSOCK_OPT_SET_PUT_MTU    = 4,
-    BTSOCK_OPT_GET_CONG_STATUS = 5
 } btsock_option_type_t;
 
 /** Represents the standard BT SOCKET interface. */
@@ -58,16 +56,20 @@ typedef struct {
      * connect to a rfcomm uuid channel of remote device, It returns the socket fd from which
      * the btsock_connect_signal and a new socket fd to be accepted can be read out when connected
      */
-    bt_status_t (*connect)(const bt_bdaddr_t *bd_addr, btsock_type_t type, const uint8_t* uuid, int channel, int* sock_fd, int flags);
+    bt_status_t (*connect)(const bt_bdaddr_t *bd_addr, btsock_type_t type, const uint8_t* uuid,
+            int channel, int* sock_fd, int flags);
+
     /*
      * get socket option of rfcomm channel socket.
      */
-    bt_status_t (*get_sock_opt)(btsock_type_t type, int channel, btsock_option_type_t option_name, void *option_value, int *option_len);
+    bt_status_t (*get_sock_opt)(btsock_type_t type, int channel, btsock_option_type_t option_name,
+            void *option_value, int *option_len);
     /*
+
      * set socket option of rfcomm channel socket.
      */
-    bt_status_t (*set_sock_opt)(btsock_type_t type, int channel, btsock_option_type_t option_name, void *option_value, int option_len);
-
+    bt_status_t (*set_sock_opt)(btsock_type_t type, int channel, btsock_option_type_t option_name,
+            void *option_value, int option_len);
 
 } btsock_interface_t;
 
