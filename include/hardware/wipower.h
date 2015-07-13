@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -36,6 +36,7 @@
 #include <stdbool.h>
 
 #include <hardware/hardware.h>
+#include <hardware/bluetooth.h>
 
 __BEGIN_DECLS
 
@@ -74,6 +75,8 @@ typedef void (*wipower_dynamic_data)(wipower_dyn_data_t* alert_data);
 
 typedef void (*wipower_power_apply)(unsigned char power_flag);
 
+typedef void (*callback_thread_event)(bt_cb_thread_evt evt);
+
 /** Bluetooth DM callback structure. */
 typedef struct {
     /** set to sizeof(wipower_callbacks_t) */
@@ -82,6 +85,7 @@ typedef struct {
     wipower_alerts wipower_alert;
     wipower_dynamic_data wipower_data;
     wipower_power_apply wipower_power_event;
+    callback_thread_event callback_thread_event;
 } wipower_callbacks_t;
 
 
