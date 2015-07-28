@@ -591,15 +591,18 @@ typedef struct {
       * Success indicates that the VSC command was sent to controller
       */
     int (*read_energy_info)();
-    /** BT stack Test interface */
-    const void* (*get_testapp_interface)(int test_app_profile);
-    /** rssi monitoring */
-    bt_status_t (*le_lpp_write_rssi_threshold)(const bt_bdaddr_t *remote_bda, char min, char max);
-    bt_status_t (*le_lpp_enable_rssi_monitor)(const bt_bdaddr_t *remote_bda, int enable);
-    bt_status_t (*le_lpp_read_rssi_threshold)(const bt_bdaddr_t *remote_bda);
 
-    /** BT stack Test interface */
-    const void* (*get_testapp_interface)(int test_app_profile);
+    /**
+     * Native support for dumpsys function
+     * Function is synchronous and |fd| is owned by caller.
+     */
+    void (*dump)(int fd);
+
+    /**
+     * Clear /data/misc/bt_config.conf and erase all stored connections
+     */
+    int (*config_clear)(void);
+
 } bt_interface_t;
 
 /** TODO: Need to add APIs for Service Discovery, Service authorization and
