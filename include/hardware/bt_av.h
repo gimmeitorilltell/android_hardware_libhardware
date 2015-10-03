@@ -61,11 +61,15 @@ typedef void (* btav_audio_config_callback)(bt_bdaddr_t *bd_addr,
  */
 typedef void (* btav_connection_priority_callback)(bt_bdaddr_t *bd_addr);
 
-/** Callback for requesting audio focus.
- *  enable will be either TRUE or FALSE
+typedef void (* btav_is_multicast_enabled_callback)(int state);
+
+/*
+ * Callback for audio focus request to be used only in
+ * case of A2DP Sink. This is required because we are using
+ * AudioTrack approach for audio data rendering.
  */
-typedef void (* btav_audio_focus_request_callback)(int enable,
-                                                bt_bdaddr_t *bd_addr);
+typedef void (* btav_audio_focus_request_callback)(bt_bdaddr_t *bd_addr);
+
 /** BT-AV callback structure. */
 typedef struct {
     /** set to sizeof(btav_callbacks_t) */
@@ -74,6 +78,7 @@ typedef struct {
     btav_audio_state_callback audio_state_cb;
     btav_audio_config_callback audio_config_cb;
     btav_connection_priority_callback connection_priority_cb;
+    btav_is_multicast_enabled_callback multicast_state_cb;
     btav_audio_focus_request_callback audio_focus_request_cb;
 } btav_callbacks_t;
 
@@ -109,7 +114,10 @@ typedef struct {
     void  (*cleanup)( void );
 
     /** Send priority of device to stack*/
-    void (*allow_connection)( int is_valid );
+    void (*allow_connection)( int is_valid , bt_bdaddr_t *bd_addr);
+
+    /** Sends Audio Focus State. */
+    void  (*audio_focus_state)( int focus_state );
 } btav_interface_t;
 
 typedef struct {
