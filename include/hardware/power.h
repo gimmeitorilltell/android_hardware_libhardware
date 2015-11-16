@@ -34,12 +34,6 @@ __BEGIN_DECLS
  */
 #define POWER_HARDWARE_MODULE_ID "power"
 
-/**
-* This definition is used by Camera HAL during  camcorder recording.
-*
-*/
-#define HAS_MULTIMEDIA_HINTS
-
 /*
  * Power hint identifiers passed to (*powerHint)
  */
@@ -62,7 +56,8 @@ typedef enum {
 } power_hint_t;
 
 typedef enum {
-    POWER_FEATURE_DOUBLE_TAP_TO_WAKE = 0x00000001
+    POWER_FEATURE_DOUBLE_TAP_TO_WAKE = 0x00000001,
+    POWER_FEATURE_SUPPORTED_PROFILES = 0x00001000
 } feature_t;
 
 /**
@@ -128,7 +123,8 @@ typedef struct power_module {
      *     User is interacting with the device, for example, touchscreen
      *     events are incoming.  CPU and GPU load may be expected soon,
      *     and it may be appropriate to raise speeds of CPU, memory bus,
-     *     etc.  The data parameter is unused.
+     *     etc.  The data parameter is the estimated length of the interaction
+     *     in milliseconds, or 0 if unknown.
      *
      * POWER_HINT_LOW_POWER
      *
@@ -164,6 +160,12 @@ typedef struct power_module {
      *
      */
     void (*setFeature)(struct power_module *module, feature_t feature, int state);
+
+    /*
+     * (*getFeature) is called to get the current value of a particular
+     * feature or capability from the hardware or PowerHAL
+     */
+    int (*getFeature)(struct power_module *module, feature_t feature);
 
 } power_module_t;
 
