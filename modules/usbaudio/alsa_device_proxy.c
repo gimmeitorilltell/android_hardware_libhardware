@@ -70,17 +70,11 @@ int proxy_open(alsa_device_proxy * proxy)
 
     proxy->pcm = pcm_open(profile->card, profile->device, profile->direction, &proxy->alsa_config);
     if (proxy->pcm == NULL) {
-        return -ENOMEM;
+
     }
 
     if (!pcm_is_ready(proxy->pcm)) {
         ALOGE("[%s] proxy_open() pcm_open() failed: %s", LOG_TAG, pcm_get_error(proxy->pcm));
-#ifdef LOG_PCM_PARAMS
-        log_pcm_config(&proxy->alsa_config, "config");
-#endif
-        pcm_close(proxy->pcm);
-        proxy->pcm = NULL;
-        return -ENOMEM;
     }
 
     return 0;

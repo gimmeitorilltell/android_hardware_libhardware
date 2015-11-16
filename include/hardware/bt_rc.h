@@ -424,6 +424,36 @@ typedef struct {
 
 typedef void (* btrc_passthrough_rsp_callback) (int id, int key_state);
 
+typedef void (* btrc_connection_state_callback) (bool state, bt_bdaddr_t *bd_addr);
+
+typedef void (* btrc_ctrl_getrcfeatures_callback) (bt_bdaddr_t *bd_addr, int features);
+
+typedef void (* btrc_ctrl_getcapability_rsp_callback) (bt_bdaddr_t *bd_addr, int cap_id,
+                                 uint32_t* supported_values, int num_supported, uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_listplayerappsettingattrib_rsp_callback) (bt_bdaddr_t *bd_addr,
+                                     uint8_t* supported_attribs, int num_attrib, uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_listplayerappsettingvalue_rsp_callback) (bt_bdaddr_t *bd_addr,
+                                        uint8_t* supported_val, uint8_t num_supported, uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_currentplayerappsetting_rsp_callback) (bt_bdaddr_t *bd_addr,uint8_t* supported_ids,
+                                                 uint8_t* supported_val, uint8_t num_attrib, uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_setplayerapplicationsetting_rsp_callback) (bt_bdaddr_t *bd_addr,uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_notification_rsp_callback) (bt_bdaddr_t *bd_addr, uint8_t rsp_type,
+                                 int rsp_len, uint8_t* notification_rsp);
+
+typedef void (* btrc_ctrl_getelementattrib_rsp_callback) (bt_bdaddr_t *bd_addr, uint8_t num_attributes,
+                                                          int rsp_len, uint8_t* attrib_rsp, uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_getplaystatus_rsp_callback) (bt_bdaddr_t *bd_addr, int param_len, uint8_t* play_status_rsp
+                                                                           ,uint8_t rsp_type);
+
+typedef void (* btrc_ctrl_setabsvol_cmd_callback) (bt_bdaddr_t *bd_addr, uint8_t abs_vol);
+
+typedef void (* btrc_ctrl_registernotification_abs_vol_callback) (bt_bdaddr_t *bd_addr);
 /** BT-RC Controller callback structure. */
 typedef struct {
     /** set to sizeof(BtRcCallbacks) */
