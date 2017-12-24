@@ -28,6 +28,11 @@ LOCAL_SRC_FILES := 	\
 	framebuffer.cpp \
 	mapper.cpp
 
+LOCAL_C_INCLUDES += \
+	frameworks/native/libs/arect/include \
+	frameworks/native/libs/nativebase/include \
+	frameworks/native/libs/nativewindow/include
+
 LOCAL_HEADER_LIBRARIES := libhardware_headers
 
 LOCAL_MODULE := gralloc.default
