@@ -69,7 +69,10 @@ typedef enum {
 
     // Custom Lineage hints
     POWER_HINT_CPU_BOOST    = 0x00000110,
-    POWER_HINT_SET_PROFILE  = 0x00000111
+    POWER_HINT_SET_PROFILE  = 0x00000111,
+
+    // Custom NexusOS hints
+    POWER_HINT_DOZING = 0x6E780001,
 } power_hint_t;
 
 typedef enum {
@@ -267,6 +270,13 @@ typedef struct power_module {
      *     An operation is happening where it would be ideal for the CPU to
      *     be boosted for a specific duration. The data parameter is an
      *     integer value of the boost duration in microseconds.
+     *
+     * POWER_HINT_DOZING
+     *
+     *     Devices goes into dozing mode, a powersave-mode
+     *     should be entered and several unrequired input-devices
+     *     like hardware-touchkeys and fingerprint-sensors may
+     *     be disabled here.
      *
      * A particular platform may choose to ignore any hint.
      *
